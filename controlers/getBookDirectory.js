@@ -1,7 +1,7 @@
 "use strict";
 "use strict";
-let models = require("../../models");
-let logger = require("../../common/logger");
+let models = require("../models");
+let logger = require("../common/logger");
 let searchBookById = models.Book.searchBookById;
 let searchBookDirectory = models.BookDirectory.searchBookDirectory;
 /**

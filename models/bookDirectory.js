@@ -1,7 +1,7 @@
 "use strict";
 
 let mysql = require('mysql');
-let config = require('../../config').mysqlConfig;
+let config = require('../config').mysqlConfig;
 let iconv = require('iconv-lite');
 
 let connection = mysql.createConnection({
