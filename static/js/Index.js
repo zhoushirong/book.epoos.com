@@ -2,8 +2,8 @@
 import React from "react";
 import {render} from "react-dom";
 import { Router, Route, browserHistory, IndexRoute} from 'react-router';
-import '../node_modules/normalize.css/normalize.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import '../../node_modules/normalize.css/normalize.css';
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../css/style.css'
 
 import App from "./App";
