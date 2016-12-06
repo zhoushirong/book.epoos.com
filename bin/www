@@ -93,5 +93,6 @@ function onListening() {
   } else {
     bind = 'port' + addr.port;
   }
+  console.log('listening ' + addr.port);
   debug('Listening on ' + bind);
 }

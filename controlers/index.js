@@ -3,23 +3,13 @@
  */
 
 "use strict";
-// exports.createBook = require('./mongo/createBook');
-// exports.grabBookDirectory = require('./mongo/grabBookDirectory');
-// exports.grabBookChapter = require('./mongo/grabBookChapter');
-// exports.grabBookOneChapter = require('./mongo/grabBookOneChapter');
+exports.createBook = require('./createBook');
+exports.grabBookDirectory = require('./grabBookDirectory');
+exports.grabBookChapter = require('./grabBookChapter');
+exports.grabBookOneChapter = require('./grabBookOneChapter');
 
-// exports.getBook = require('./mongo/getBook');
-// exports.getBookChapter = require('./mongo/getBookChapter');
-// exports.getBookDirectory = require('./mongo/getBookDirectory');
-
-
-exports.createBook = require('./mysql/createBook');
-exports.grabBookDirectory = require('./mysql/grabBookDirectory');
-exports.grabBookChapter = require('./mysql/grabBookChapter');
-exports.grabBookOneChapter = require('./mysql/grabBookOneChapter');
-
-exports.getBook = require('./mysql/getBook');
-exports.getBookChapter = require('./mysql/getBookChapter');
-exports.getBookDirectory = require('./mysql/getBookDirectory');
+exports.getBook = require('./getBook');
+exports.getBookChapter = require('./getBookChapter');
+exports.getBookDirectory = require('./getBookDirectory');
 
 

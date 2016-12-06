@@ -5,11 +5,11 @@
 ### 初始化系统
 
 ``` html
-cd crawler 
+cd book.epoos.com 
 
 npm install
 
-cd crawler/static 
+cd book.epoos.com/static 
 
 npm install
 ```
@@ -28,7 +28,7 @@ cd sql
 
 ```html
 
-cd crawler/tools
+cd book.epoos.com/tools
 
 node ./createXXBook
 
@@ -41,7 +41,7 @@ node ./createXXBookChapter
 ### webpack编译
 
 ``` html
-cd crawler
+cd book.epoos.com
 
 webpack -w
 ```
@@ -56,7 +56,7 @@ npm install
 npm start
 
 
-### 默认端口3097
+### 默认端口3090
 
 <a href="http://localhost:3097/">http://localhost:3097/</a>
 
