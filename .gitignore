@@ -1,4 +1,5 @@
 /node_modules
 /logs
-webpack.config.js
 /test
+/publish
+/staticPub
