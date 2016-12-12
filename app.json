@@ -1,13 +1,13 @@
 {
     "apps": [{
-        "name": "crawler",
+        "name": "book",
         "script": "./bin/www",
         "log_date_format": "YYYY-MM-DD HH:mm:SS",
         "merge_logs": true,
-        "log_file": "./logs/crawler.log",
-        "error_file": "./logs/crawler-err.log",
-        "out_file": "./logs/crawler-out.log",
-        "pid_file": "./logs/crawler.pid",
+        "log_file": "./logs/book.log",
+        "error_file": "./logs/book-err.log",
+        "out_file": "./logs/book-out.log",
+        "pid_file": "./logs/book.pid",
         "exec_mode": "fork",
         "instances": "1",
         "max_restarts": 500,

@@ -9,6 +9,8 @@ let getBook = require("../controlers").getBook;
 let getBookDirectory = require("../controlers").getBookDirectory;
 let getBookChapter = require("../controlers").getBookChapter;
 
+let checkParam = require('../common/checkParam');
+
 // 获取文章列表
 router.get("/book", function(req, res, next) {
 	getBook(function(directoryData) {
@@ -32,6 +34,9 @@ router.get("/book", function(req, res, next) {
 
 // 获取文章章节列表
 router.get("/book/:id", function(req, res, next) {
+	if (!checkParam.checkNumParam(req,'test')) {
+		next();
+	}
 	let id = req.params.id;
 	getBookDirectory(id, function(directoryData) {
 		var arr = [];
@@ -51,6 +56,9 @@ router.get("/book/:id", function(req, res, next) {
 
 // 获取文章章节信息
 router.get("/book/:id/:num", function(req, res, next) {
+	if (!checkParam.checkNumParam(req)) {
+		next();
+	}
 	let id = req.params.id;
 	let num = req.params.num;
 	let content = null,

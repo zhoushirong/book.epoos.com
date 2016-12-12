@@ -5,7 +5,13 @@
 	<title>404</title>
 </head>
 <body>
-	<h2>page not find</h2>
+	<h2>抱歉，页面不存在或者页面地址有变更，3s后将跳转到首页</h2>
 	{{> footer.tpl}}
+
+	<script type="text/javascript">
+		setTimeout(function() {
+			location.href="/";
+		}, 3000);
+	</script>
 </body>
 </html>
