@@ -12,12 +12,13 @@ let bookChapterModle = models.BookChapter;
 
 let bookName = null;
 let bookId = null;
+let bookUrl = null;
 let ids = [];
 let getSingleArticleInterval = null;
 /**
  * 初始化文章列表
  */
-function initArgs(url) {
+function initArgs() {
 	ids = [];
 	bookDirectoryModle.searchBookDirectory({
 		"book_id": bookId
@@ -35,7 +36,7 @@ function initArgs(url) {
 		if (ids.length === 0) {
 			return false;
 		}
-		getArticle(url);
+		getArticle();
 	});
 }
 
@@ -52,36 +53,32 @@ function filter(txt) {
 /**
  * 循环获取文章
  */
-function getArticle(url) {
+function getArticle() {
 	let getDir = new Crawler({
 		jQuery: jsdom,
 		maxConnections: 300,
 		forceUTF8: true
 	});
-	// getSingleArticleInterval = setInterval(function() {
-	// 	if(ids.length <= 0) {
-	// 		clearInterval(getSingleArticleInterval);
-	// 		getSingleArticleInterval = null;
-	// 		return false;
-	// 	}
-	// 	var id = ids.pop();
-	// 	console.log(ids.length);
-	// 	getSingleArticle(getDir, url, id);
-	// },100);
-	
-	ids.forEach(function(id, index) {
-		if (index < ids.length) {
-			(function(id) {
-				getSingleArticle(getDir, url, id);
-			})(id);
-		}
+	let id = ids.pop();
+	getSingleArticle(getDir, id, function() {
+		getArticle();
 	});
+
+	// ids.forEach(function(id, index) {
+	// 	if (index < ids.length) {
+	// 		(function(id) {
+	// 			getSingleArticle(getDir, url, id);
+	// 		})(id);
+	// 	}
+	// });
 }
 
 /**
  * 获取单篇文章
  */
-function getSingleArticle(getDir, url, id) {
+function getSingleArticle(getDir, id, callback) {
+	console.log(`start to grab book chapter${id}`);
+	let url = bookUrl;
 	getDir.queue({
 		uri: `${url}/${id}.html`,
 		callback: function(error, result, $) {
@@ -181,9 +178,9 @@ module.exports = function(name) {
 		"book_name": name
 	}, function(book) {
 		if (book.length) {
-			let url = book[0].book_source;
+			bookUrl = book[0].book_source;
 			bookId = book[0].id;
-			initArgs(url);
+			initArgs();
 			logger.info(`start to create the chapters of the book ${name}`);
 		} else {
 			logger.info(`the book ${name} is not exsit! you can try create it`);
