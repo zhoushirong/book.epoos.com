@@ -15,6 +15,9 @@ let bookId = null;
 let bookUrl = null;
 let ids = [];
 let getSingleArticleInterval = null;
+
+let RETRY_TMIE = 0; //重试
+let RETRY_TMIE_MAX = 3;
 /**
  * 初始化文章列表
  */
@@ -60,6 +63,7 @@ function getArticle() {
 		forceUTF8: true
 	});
 	let id = ids.pop();
+	RETRY_TMIE = 0;
 	getSingleArticle(getDir, id, function() {
 		getArticle();
 	});
@@ -74,7 +78,6 @@ function getSingleArticle(getDir, id, callback) {
 		uri: `${bookUrl}/${id}.html`,
 		callback: function(error, result, $) {
 			crawlerCallback(error, result, $, getDir, id, callback);
-			callback();
 		}
 	});
 }
@@ -83,12 +86,13 @@ function getSingleArticle(getDir, id, callback) {
  * crawler 回调
  */
 function crawlerCallback(error, result, $, getDir, id, callback) {
-	if (!$ || !result || error) {
-		//重试，重试这里没有做次数限制，如果是自动执行爬虫需要限制次数
+	if (RETRY_TMIE < RETRY_TMIE_MAX && !$ || !result || error) {
+		RETRY_TMIE++;
 		getSingleArticle(getDir, id, callback);
 		logger.error(`id:${id} error and then retry"${error}`);
 		return false;
 	}
+	callback();
 	let title = filter($("#amain h1").html()) || "";
 	let content = filter($('#contents').html()) || "";
 	let contentNavLink = $("#footlink a");
@@ -118,14 +122,14 @@ function crawlerCallback(error, result, $, getDir, id, callback) {
 		"num": id,
 		"title": title,
 		"content": content,
-		"pre": {
+		"pre": JSON.stringify({
 			id: preId,
 			title: preTitle
-		},
-		"next": {
+		}),
+		"next": JSON.stringify({
 			id: nextId,
 			title: nextTitle
-		}
+		})
 
 	};
 	saveBookChapter(data);
@@ -154,11 +158,13 @@ function saveBookChapter(obj) {
 			"book_chapter_number": bookChapter.book_chapter_number
 		}, function(oldBookChapter) {
 			if (!oldBookChapter.length) {
-				bookChapterModle.createBookChapter(bookChapter);
-				logger.info(`create ${bookChapter.book_chapter_number} chapter ok!`);
+				bookChapterModle.createBookChapter(bookChapter, function() {
+					logger.info(`create ${bookChapter.book_chapter_number} chapter ok!`);
+				});
 			} else {
-				bookChapterModle.updateBookChapter(bookChapter);
-				logger.info(`update ${bookChapter.book_chapter_number} chapter ok!`);
+				bookChapterModle.updateBookChapter(bookChapter, function() {
+					logger.info(`update ${bookChapter.book_chapter_number} chapter ok!`);
+				});
 			}
 		});
 	})(obj);

@@ -13,6 +13,7 @@ let connection = mysql.createConnection({
 let BOOK_TABLE = "bookChapter";
 
 function createBookChapter(obj, callback) {
+	console.log(obj.book_chapter_name, obj.book_chapter_number, 1112);
 	let sql = `INSERT INTO ${BOOK_TABLE} (
 		book_chapter_number,
 		book_chapter_name,
@@ -42,17 +43,20 @@ function createBookChapter(obj, callback) {
 
 
 function updateBookChapter(obj, callback) {
+	if (!(obj.book_chapter_number && obj.book_id)) {
+		return false;
+	}
 	let sql = `UPDATE ${BOOK_TABLE} 
 		SET 
 		book_chapter_content = ${connection.escape(obj.book_chapter_content)},
 		book_chapter_name = ${connection.escape(obj.book_chapter_name)},
-		book_chapter_previous = ${connection.escape(obj.book_chapter_previous)} 
+		book_chapter_previous = ${connection.escape(obj.book_chapter_previous)}, 
 		book_chapter_next = ${connection.escape(obj.book_chapter_next)} 
 		WHERE 
 		book_id = ${connection.escape(obj.book_id)}
 		AND
 		book_chapter_number = ${connection.escape(obj.book_chapter_number)}`;
-		console.log(obj.book_chapter_number, obj.book_id);
+
 	connection.query(sql, function(err, result) {
 		if (err) {
 			throw err;
