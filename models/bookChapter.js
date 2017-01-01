@@ -13,7 +13,6 @@ let connection = mysql.createConnection({
 let BOOK_TABLE = "bookChapter";
 
 function createBookChapter(obj, callback) {
-	console.log(obj.book_chapter_name, obj.book_chapter_number, 1112);
 	let sql = `INSERT INTO ${BOOK_TABLE} (
 		book_chapter_number,
 		book_chapter_name,

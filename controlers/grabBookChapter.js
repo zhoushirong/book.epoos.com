@@ -88,6 +88,7 @@ function getSingleArticle(getDir, id, callback) {
 function crawlerCallback(error, result, $, getDir, id, callback) {
 	if (RETRY_TMIE < RETRY_TMIE_MAX && !$ || !result || error) {
 		RETRY_TMIE++;
+		console.log(`retry get chapter ${id} times is ${RETRY_TMIE}`);
 		getSingleArticle(getDir, id, callback);
 		logger.error(`id:${id} error and then retry"${error}`);
 		return false;
