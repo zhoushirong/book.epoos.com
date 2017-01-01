@@ -7,7 +7,7 @@ let createBook = require("../controlers").createBook;
 createBook({
 	"bookName":"择天记",
 	"bookAuthor":"猫腻",
-	"bookSource": "http://www.23wx.com/html/52/52234/",
+	"bookSource": "http://www.23us.com/html/52/52234/",
 });
 
 

@@ -55,7 +55,6 @@ function getArticle(url) {
 		maxConnections: 300,
 		forceUTF8: true
 	});
-	console.log(ids, 333);
 	getSingleArticle(getDir, url, ids[0]);
 }
 
@@ -118,7 +117,6 @@ function crawlerCallback(error, result, $, getDir, url, id) {
 			id: nextId,
 			title: nextTitle
 		}
-
 	};
 	saveBookChapter(data);
 }

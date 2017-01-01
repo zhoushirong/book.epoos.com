@@ -7,6 +7,6 @@ let createBook = require("../controlers").createBook;
 createBook({
 	"bookName":"极品公子",
 	"bookAuthor":"烽火戏诸侯",
-	"bookSource": "http://www.23wx.com/html/8/8046/",
+	"bookSource": "http://www.23us.com/html/8/8046/",
 });
 

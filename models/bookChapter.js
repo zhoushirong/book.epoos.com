@@ -44,11 +44,15 @@ function createBookChapter(obj, callback) {
 function updateBookChapter(obj, callback) {
 	let sql = `UPDATE ${BOOK_TABLE} 
 		SET 
-		book_chapter_content = ${connection.escape(obj.book_chapter_content)} 
+		book_chapter_content = ${connection.escape(obj.book_chapter_content)},
+		book_chapter_name = ${connection.escape(obj.book_chapter_name)},
+		book_chapter_previous = ${connection.escape(obj.book_chapter_previous)} 
+		book_chapter_next = ${connection.escape(obj.book_chapter_next)} 
 		WHERE 
 		book_id = ${connection.escape(obj.book_id)}
 		AND
-		book_chapter_name = ${connection.escape(obj.book_chapter_name)}`;
+		book_chapter_number = ${connection.escape(obj.book_chapter_number)}`;
+		console.log(obj.book_chapter_number, obj.book_id);
 	connection.query(sql, function(err, result) {
 		if (err) {
 			throw err;

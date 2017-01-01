@@ -39,7 +39,10 @@ function createBook(obj, callback) {
 }
 
 function updateBook(obj, newObj, callback) {
-	var sql = `UPDATE ${BOOK_TABLE} SET book_author=${connection.escape(newObj.book_author)} WHERE book_name=${connection.escape(obj.book_name)}`;
+	var sql = `UPDATE ${BOOK_TABLE} 
+	SET book_author=${connection.escape(newObj.book_author)},
+			book_source=${connection.escape(newObj.book_source)}
+	WHERE book_name=${connection.escape(obj.book_name)}`;
 	connection.query(sql, function(err, result) {
 		if (err) {
 			throw err;

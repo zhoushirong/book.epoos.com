@@ -51,7 +51,7 @@ function filter(txt) {
 }
 
 /**
- * 循环获取文章
+ * 依次获取文章
  */
 function getArticle() {
 	let getDir = new Crawler({
@@ -63,14 +63,6 @@ function getArticle() {
 	getSingleArticle(getDir, id, function() {
 		getArticle();
 	});
-
-	// ids.forEach(function(id, index) {
-	// 	if (index < ids.length) {
-	// 		(function(id) {
-	// 			getSingleArticle(getDir, url, id);
-	// 		})(id);
-	// 	}
-	// });
 }
 
 /**
@@ -78,11 +70,11 @@ function getArticle() {
  */
 function getSingleArticle(getDir, id, callback) {
 	console.log(`start to grab book chapter${id}`);
-	let url = bookUrl;
 	getDir.queue({
-		uri: `${url}/${id}.html`,
+		uri: `${bookUrl}/${id}.html`,
 		callback: function(error, result, $) {
-			crawlerCallback(error, result, $, getDir, url, id)
+			crawlerCallback(error, result, $, getDir, id, callback);
+			callback();
 		}
 	});
 }
@@ -90,10 +82,10 @@ function getSingleArticle(getDir, id, callback) {
 /*
  * crawler 回调
  */
-function crawlerCallback(error, result, $, getDir, url, id) {
+function crawlerCallback(error, result, $, getDir, id, callback) {
 	if (!$ || !result || error) {
 		//重试，重试这里没有做次数限制，如果是自动执行爬虫需要限制次数
-		getSingleArticle(getDir, url, id);
+		getSingleArticle(getDir, id, callback);
 		logger.error(`id:${id} error and then retry"${error}`);
 		return false;
 	}

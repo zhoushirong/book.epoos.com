@@ -7,7 +7,7 @@ let createBook = require("../controlers").createBook;
 createBook({
 	"bookName":"老子是癞蛤蟆",
 	"bookAuthor":"烽火戏诸侯",
-	"bookSource": "http://www.23wx.com/html/0/863/",
+	"bookSource": "http://www.23us.com/html/0/863/",
 });
 
 
