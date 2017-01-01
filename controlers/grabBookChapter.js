@@ -58,23 +58,24 @@ function getArticle(url) {
 		maxConnections: 300,
 		forceUTF8: true
 	});
-	getSingleArticleInterval = setInterval(function() {
-		if(ids.length <= 0) {
-			clearInterval(getSingleArticleInterval);
-			getSingleArticleInterval = null;
-			return false;
-		}
-		var id = ids.pop();
-		console.log(ids.length);
-		getSingleArticle(getDir, url, id);
-	},100);
-	// ids.forEach(function(id, index) {
-	// 	if (index < ids.length) {
-	// 		(function(id) {
-	// 			getSingleArticle(getDir, url, id);
-	// 		})(id);
+	// getSingleArticleInterval = setInterval(function() {
+	// 	if(ids.length <= 0) {
+	// 		clearInterval(getSingleArticleInterval);
+	// 		getSingleArticleInterval = null;
+	// 		return false;
 	// 	}
-	// });
+	// 	var id = ids.pop();
+	// 	console.log(ids.length);
+	// 	getSingleArticle(getDir, url, id);
+	// },100);
+	
+	ids.forEach(function(id, index) {
+		if (index < ids.length) {
+			(function(id) {
+				getSingleArticle(getDir, url, id);
+			})(id);
+		}
+	});
 }
 
 /**

@@ -3,7 +3,7 @@ let log4js = require('log4js');
 let path = require('path');
 let config = require('../config');
 let env = process.env.NODE_ENV || "development";
-let logger = log4js.getLogger('crawler');
+let logger = log4js.getLogger('book');
 
 log4js.configure({
 	appenders: [
@@ -12,8 +12,8 @@ log4js.configure({
 	},
 	{
 		type: 'file',
-		filename: path.join(__dirname,'../logs/crawler.log'),
-		category: 'crawler'
+		filename: path.join(__dirname,'../logs/book.log'),
+		category: 'book'
 	}
 	]
 });
